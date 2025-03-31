@@ -1,0 +1,34 @@
+{% extends 'detector/base.html' %}
+
+{% block title %}Result - Fraud Detector{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Analysis Result</h2>
+            </div>
+            <div class="card-body">
+                <div class="alert {% if result.is_fraud %}alert-danger{% else %}alert-success{% endif %}" role="alert">
+                    <h4 class="alert-heading">
+                        {% if result.is_fraud %}
+                            ⚠️ FRAUD DETECTED
+                        {% else %}
+                            ✅ Transaction Safe
+                        {% endif %}
+                    </h4>
+                    <p>Fraud Probability: {{ result.probability|floatformat:4 }}</p>
+                    <hr>
+                    <p class="mb-0">Decision Threshold: {{ result.threshold|floatformat:4 }}</p>
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <a href="{% url 'index' %}" class="btn btn-primary">Check Another Transaction</a>
+                    <a href="{% url 'dashboard' %}" class="btn btn-secondary">View Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

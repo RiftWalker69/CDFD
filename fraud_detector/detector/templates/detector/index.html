@@ -1,0 +1,43 @@
+{% extends 'detector/base.html' %}
+
+{% block title %}Home - Fraud Detector{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Transaction Fraud Detection</h2>
+            </div>
+            <div class="card-body">
+                <form method="post" id="transactionForm">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="alert alert-danger">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Check for Fraud</button>
+                    </div>
+                </form>
+
+                <div id="result" class="mt-4" style="display: none;">
+                    <div class="alert" role="alert">
+                        <h4 class="alert-heading">Analysis Result</h4>
+                        <p id="resultText"></p>
+                        <hr>
+                        <p class="mb-0" id="probabilityText"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

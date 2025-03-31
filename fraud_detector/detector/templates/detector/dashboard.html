@@ -1,0 +1,75 @@
+{% extends 'detector/base.html' %}
+
+{% block title %}Dashboard - Fraud Detector{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Statistics</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <h6>Total Transactions</h6>
+                    <p class="h3">{{ total_transactions }}</p>
+                </div>
+                <div class="mb-3">
+                    <h6>Fraudulent Transactions</h6>
+                    <p class="h3 text-danger">{{ fraud_count }}</p>
+                </div>
+                <div class="mb-3">
+                    <h6>Fraud Rate</h6>
+                    <p class="h3">{{ fraud_rate|floatformat:2 }}%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Recent Transactions</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Distance from Home</th>
+                                <th>Distance from Last</th>
+                                <th>Ratio to Median</th>
+                                <th>Used Chip</th>
+                                <th>Online Order</th>
+                                <th>Fraud</th>
+                                <th>Probability</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for transaction in transactions %}
+                            <tr>
+                                <td>{{ transaction.timestamp|date:"Y-m-d H:i" }}</td>
+                                <td>{{ transaction.distance_from_home|floatformat:2 }}</td>
+                                <td>{{ transaction.distance_from_last_transaction|floatformat:2 }}</td>
+                                <td>{{ transaction.ratio_to_median|floatformat:2 }}</td>
+                                <td>{{ transaction.used_chip|yesno:"Yes,No" }}</td>
+                                <td>{{ transaction.online_order|yesno:"Yes,No" }}</td>
+                                <td>
+                                    {% if transaction.is_fraud %}
+                                        <span class="badge bg-danger">Yes</span>
+                                    {% else %}
+                                        <span class="badge bg-success">No</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ transaction.probability|floatformat:4 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
