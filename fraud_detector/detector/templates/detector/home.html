@@ -1,0 +1,119 @@
+{% extends 'detector/base.html' %}
+{% block title %}Model Evaluation Report{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">📊 Model Evaluation Report</h2>
+
+    <!-- Summary Statistics -->
+    <div class="row my-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-success shadow">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Accuracy</h5>
+                    <p class="display-6">99%</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-primary shadow">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Precision (Class 1)</h5>
+                    <p class="display-6">91%</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-warning shadow">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Recall (Class 1)</h5>
+                    <p class="display-6">100%</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-danger shadow">
+                <div class="card-body text-center">
+                    <h5 class="card-title">F1-Score</h5>
+                    <p class="display-6">95%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confusion Matrix -->
+    <div class="card shadow mb-4">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">Confusion Matrix</h5>
+        </div>
+        <div class="card-body">
+            <p>Confusion Matrix details: This matrix compares the actual vs predicted values. 
+               It helps evaluate how well the model has performed in terms of correctly identifying fraud transactions (Class 1) and non-fraud transactions (Class 0).</p>
+            <table class="table table-bordered text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th></th>
+                        <th class="text-black">Predicted No (Non-Fraud)</th>
+                        <th class="text-black">Predicted Yes (Fraud)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Actual No (Non-Fraud)</th>
+                        <td>180,728</td>
+                        <td class="text-danger">1,791</td>
+                    </tr>
+                    <tr>
+                        <th>Actual Yes (Fraud)</th>
+                        <td class="text-danger">11</td>
+                        <td>17,470</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>This confusion matrix indicates the model's performance in detecting fraud:</p>
+            <ul>
+                <li><strong>True Negatives (180,728):</strong> The number of legitimate transactions correctly identified as legitimate.</li>
+                <li><strong>False Positives (1,791):</strong> Legitimate transactions incorrectly identified as fraud.</li>
+                <li><strong>False Negatives (11):</strong> Fraudulent transactions incorrectly identified as legitimate.</li>
+                <li><strong>True Positives (17,470):</strong> Fraudulent transactions correctly identified as fraud.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ROC AUC Score -->
+    <div class="alert alert-info text-center">
+        <h4>🔹 ROC AUC Score: <strong>0.995</strong></h4>
+        <p>This score indicates the model's ability to distinguish between fraud and non-fraud transactions. A value closer to 1 indicates an excellent model performance.</p>
+    </div>
+
+    <!-- Random Forest Model Section -->
+    <div class="card shadow mb-4">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">Understanding the Random Forest Model</h5>
+        </div>
+        <div class="card-body">
+            <p>
+                Random Forest is an ensemble learning method that combines multiple decision trees to create a more accurate and robust model. It works by generating many decision trees during training and outputting the class that is the majority vote from all the trees.
+            </p>
+            <h4>Key Advantages</h4>
+            <ul>
+                <li><strong>Handles Missing Data:</strong> Random Forest can handle datasets with missing values by using various strategies to impute missing data.</li>
+                <li><strong>Reduces Overfitting:</strong> By averaging multiple trees, Random Forest mitigates the risk of overfitting, making it more robust than individual decision trees.</li>
+                <li><strong>Feature Importance:</strong> It provides a ranking of features based on how important they are in making predictions.</li>
+                <li><strong>Versatility:</strong> Suitable for both classification and regression problems.</li>
+                <li><strong>Handles High-Dimensional Data:</strong> It works well with large datasets with many features.</li>
+            </ul>
+
+            <h4>Applications of Random Forest</h4>
+            <ul>
+                <li><strong>Fraud Detection:</strong> Random Forest is widely used in the financial industry for fraud detection, helping to identify fraudulent transactions by analyzing transaction patterns.</li>
+                <li><strong>Medical Diagnosis:</strong> It aids in predicting diseases and classifying medical data, such as cancer diagnosis or predicting patient outcomes.</li>
+                <li><strong>Credit Scoring:</strong> Used by financial institutions to assess the creditworthiness of individuals or businesses.</li>
+                <li><strong>Stock Market Predictions:</strong> It helps to predict stock prices by analyzing market trends and historical data.</li>
+                <li><strong>Self-Driving Cars:</strong> Random Forest algorithms are applied in object detection, identifying pedestrians, vehicles, and other obstacles on the road.</li>
+                <li><strong>Image and Text Classification:</strong> Common in applications like spam filtering, facial recognition, and document categorization.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
