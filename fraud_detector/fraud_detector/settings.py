@@ -25,9 +25,8 @@ SECRET_KEY = 'django-insecure-*3+r9$jifbw#k^ck@^do1*f)bl#%2a15^u^ta#h(lnl@6hr*%7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-import os
+ALLOWED_HOSTS = []
 
-ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1']
 
 # Application definition
 
@@ -52,7 +51,7 @@ MIDDLEWARE = [
 ]
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "media"
 
