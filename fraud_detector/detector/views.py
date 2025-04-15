@@ -8,12 +8,24 @@ from datetime import datetime
 from django.utils.timezone import make_naive, get_current_timezone
 from django.core.serializers.json import DjangoJSONEncoder
 import json
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.decorators import login_required
+from .forms import CustomUserCreationForm
 
 fraud_model = FraudModel()
 def home(request):
     return render(request, 'detector/home.html')
+
+@login_required
+def about(request):
+    return render(request, 'detector/about.html')
+@login_required
 def cyber(request):
     return render(request, "detector/cyber.html")
+
+
+@login_required
 def index(request):
     if request.method == 'POST':
         form = TransactionForm(request.POST)
@@ -53,30 +65,39 @@ def index(request):
     
     return render(request, 'detector/index.html', {'form': form})
 
+@login_required
 def dashboard(request):
-    transactions = Transaction.objects.all()[:100]
+    # Get the data
+    transactions = Transaction.objects.all().order_by('-timestamp')[:100]
     total_transactions = Transaction.objects.count()
     fraud_count = Transaction.objects.filter(is_fraud=True).count()
     fraud_rate = (fraud_count / total_transactions * 100) if total_transactions > 0 else 0
     
-    # Prepare data for charts
-    transactions_data = []
+    # Prepare chart data
+    chart_data = {
+        'labels': [],
+        'amounts': [],
+        'distances': [],
+        'is_fraud': []
+    }
+    
     for tx in transactions:
-        transactions_data.append({
-            'distance_from_home': float(tx.distance_from_home),
-            'ratio_to_median_purchase_price': float(tx.ratio_to_median_purchase_price),
-            'is_fraud': tx.is_fraud
-        })
+        chart_data['labels'].append(tx.timestamp.strftime('%Y-%m-%d %H:%M'))
+        chart_data['amounts'].append(float(tx.ratio_to_median_purchase_price))
+        chart_data['distances'].append(float(tx.distance_from_home))
+        chart_data['is_fraud'].append(tx.is_fraud)
     
     context = {
         'transactions': transactions,
         'total_transactions': total_transactions,
         'fraud_count': fraud_count,
         'fraud_rate': fraud_rate,
-        'transactions_json': json.dumps(transactions_data)
+        'chart_data': json.dumps(chart_data)
     }
+    
     return render(request, 'detector/dashboard.html', context)
 
+@login_required
 def delete_transaction(request, transaction_id):
     try:
         transaction = Transaction.objects.get(id=transaction_id)
@@ -86,12 +107,14 @@ def delete_transaction(request, transaction_id):
         messages.error(request, 'Transaction not found.')
     return redirect('dashboard')
 
+@login_required
 def clear_all_transactions(request):
     if request.method == 'POST':
         Transaction.objects.all().delete()
         messages.success(request, 'All transactions have been cleared successfully.')
     return redirect('dashboard')
 
+@login_required
 def export_transactions(request):
     # Check if there are any transactions
     if not Transaction.objects.exists():
@@ -128,3 +151,49 @@ def export_transactions(request):
     df.to_excel(response, index=False)
     
     return response
+
+def user_login(request):
+    if request.user.is_authenticated:
+        return redirect('index')
+        
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, f'Welcome back, {username}!')
+                return redirect('index')
+            else:
+                messages.error(request, 'Invalid username or password.')
+        else:
+            messages.error(request, 'Invalid username or password.')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'detector/auth/login.html', {'form': form})
+
+def user_register(request):
+    if request.user.is_authenticated:
+        return redirect('index')
+        
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, f'Account created successfully! Welcome, {user.username}!')
+            return redirect('index')
+        else:
+            for error in form.errors.values():
+                messages.error(request, error)
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'detector/auth/register.html', {'form': form})
+
+def user_logout(request):
+    logout(request)
+    messages.info(request, 'You have been logged out successfully.')
+    return redirect('login')
+

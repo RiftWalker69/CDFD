@@ -2,15 +2,17 @@
 body {
     background-color: #ebebeb;
 }
-
+.s-container{
+    display: flex;
+    background-color: #0061f2;
+    flex-direction: row;
+}
 /* Card Styles */
 .card {
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 1, 01, 1);
     border: none;
 }
-.card-body{
-    
-}
+
 .card-header {
     background-color: #fff;
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
