@@ -43,21 +43,25 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" 
+                           href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" 
-                           href="{% url 'index' %}">Home</a>
+                           href="{% url 'index' %}">Transaction Form</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" 
                            href="{% url 'dashboard' %}">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'cybersecurity' %}active{% endif %}" 
-                           href="{% url 'cyber' %}">Cybersecurity</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" 
                            href="{% url 'about' %}">About</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/cyber/' %}active fw-bold{% endif %}" href="{% url 'cyber' %}">Help</a>
+                    </li>
+                    
                 </ul>
                 <div class="user-section d-flex align-items-center">
                     <span class="text-light me-3">Welcome, {{ user.username }}</span>

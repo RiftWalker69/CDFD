@@ -2,14 +2,10 @@
 body {
     background-color: #ebebeb;
 }
-.s-container{
-    display: flex;
-    background-color: #0061f2;
-    flex-direction: row;
-}
+
 /* Card Styles */
 .card {
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 1, 01, 1);
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.125);
     border: none;
 }
 
@@ -26,14 +22,14 @@ body {
 
 /* Button Styles */
 .btn-primary {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
+    background-color: #3498db;
+    border-color: #3498db;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .btn-primary:hover {
-    background-color: #0b5ed7;
-    border-color: #0a58ca;
+    background-color: #2980b9;
+    border-color: #2980b9;
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

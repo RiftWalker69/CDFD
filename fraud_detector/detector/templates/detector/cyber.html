@@ -1,198 +1,291 @@
 {% extends 'detector/base.html' %}
 
+{% block title %}Cyber Security - Fraud Detector{% endblock %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Credit Card Fraud Helpline - India</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
+<style>
+    .c-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 15px;
+    }
 
-        body {
-            line-height: 1.6;
-            background-color: #f5f5f5;
-            color: #333;
-        }
+    .header {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        color: #2c3e50;
+        padding: 3rem;
+        text-align: center;
+        border-radius: 16px;
+        margin-bottom: 2.5rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+    .header h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: #2c3e50;
+    }
 
+    .header p {
+        font-size: 1.2rem;
+        color: #34495e;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .emergency-section {
+        background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+        color: white;
+        padding: 2.5rem;
+        border-radius: 16px;
+        margin-bottom: 2.5rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .contact-block {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        transition: transform 0.2s;
+        color: #2c3e50;
+    }
+
+    .contact-block:hover {
+        transform: translateY(-5px);
+    }
+
+    .contact-block h3 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .bank-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .bank-list li {
+        padding: 0.8rem 0;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .c-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        margin-bottom: 2rem;
+        transition: transform 0.2s;
+    }
+
+    .c-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .section-title {
+        color: #2c3e50;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.8rem;
+        border-bottom: 2px solid #3498db;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .c-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .c-card ul li {
+        padding: 1rem 0;
+        border-bottom: 1px solid #eee;
+        color: #444;
+        display: flex;
+        align-items: center;
+    }
+
+    .c-card ul li:before {
+        content: "•";
+        color: #3498db;
+        font-weight: bold;
+        margin-right: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .emergency-number {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #3498db;
+        background: white;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        display: inline-block;
+        margin: 0.5rem 0;
+    }
+
+    .btn-primary {
+        background-color: #3498db;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-weight: 500;
+        transition: all 0.2s;
+        color: white;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+        transform: translateY(-2px);
+        color: white;
+    }
+
+    .resource-link {
+        color: #3498db;
+        text-decoration: none;
+        transition: all 0.2s;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .resource-link:hover {
+        color: #2980b9;
+    }
+
+    footer {
+        text-align: center;
+        margin: 3rem 0 1rem;
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
         .header {
-            background-color: #2c3e50;
-            color: white;
             padding: 2rem;
-            text-align: center;
-            border-radius: 10px;
-            margin-bottom: 2rem;
         }
-
-        .emergency-section {
-            background-color: #e74c3c;
-            color: white;
-            padding: 2rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
+        
+        .header h1 {
+            font-size: 2rem;
         }
-
-        .section-title {
-            color: #2c3e50;
-            margin: 1.5rem 0;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 0.5rem;
-        }
-
-        .card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin-bottom: 1.5rem;
-        }
-
+        
         .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
+            grid-template-columns: 1fr;
         }
+    }
+</style>
 
-        .contact-block {
-            background: rgba(255,255,255,0.1);
-            padding: 1rem;
-            border-radius: 6px;
-        }
+<div class="c-container">
+    <header class="header">
+        <h1>Credit Card Fraud Assistance</h1>
+        <p>Your trusted resource for fraud prevention and recovery support</p>
+    </header>
 
-        .bank-list {
-            list-style-type: none;
-            padding: 1rem;
-        }
-
-        .bank-list li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        a {
-            color: #3498db;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .checklist-btn {
-            display: inline-block;
-            background-color: #27ae60;
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 5px;
-            margin-top: 1rem;
-            transition: background-color 0.3s;
-        }
-
-        .checklist-btn:hover {
-            background-color: #219a52;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
-            
-            .header h1 {
-                font-size: 1.5rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header class="header">
-            <h1>Credit Card Fraud Assistance - India</h1>
-            <p>24/7 Support for Fraud Victims</p>
-        </header>
-
-        <section class="emergency-section">
-            <h2>Emergency Contacts</h2>
-            <div class="contact-grid">
-                <div class="contact-block">
-                    <h3>National Cyber Crime Portal</h3>
-                    <p>Helpline: <strong>1930</strong></p>
-                    <p>Website: <a href="https://cybercrime.gov.in">cybercrime.gov.in</a></p>
-                </div>
-                <div class="contact-block">
-                    <h3>Bank Helplines</h3>
-                    <ul class="bank-list">
-                        <li>SBI Card: 1800 180 1290</li>
-                        <li>HDFC Bank: 1800 267 6161</li>
-                        <li>ICICI Bank: 1800 1080</li>
-                        <li>Axis Bank: 1800 419 8585</li>
-                    </ul>
-                </div>
-                <div class="contact-block">
-                    <h3>Police Cyber Cell</h3>
-                    <p>File FIR at nearest police station</p>
-                    <p>Dial: <strong>100</strong> (Emergency)</p>
-                </div>
+    <section class="emergency-section">
+        <h2 class="mb-4">Emergency Contacts</h2>
+        <div class="contact-grid">
+            <div class="contact-block">
+                <h3><i class="fas fa-shield-alt"></i>National Cyber Crime</h3>
+                <p class="mb-2">Toll-Free Helpline</p>
+                <div class="emergency-number">1930</div>
+                <a href="https://cybercrime.gov.in" class="resource-link mt-2">
+                    <i class="fas fa-external-link-alt"></i>Visit Portal
+                </a>
             </div>
-        </section>
+            <div class="contact-block">
+                <h3><i class="fas fa-university"></i>Bank Helplines</h3>
+                <ul class="bank-list">
+                    <li>SBI Card <span>1800 180 1290</span></li>
+                    <li>HDFC Bank <span>1800 267 6161</span></li>
+                    <li>ICICI Bank <span>1800 1080</span></li>
+                    <li>Axis Bank <span>1800 419 8585</span></li>
+                </ul>
+            </div>
+            <div class="contact-block">
+                <h3><i class="fas fa-phone-alt"></i>Police Emergency</h3>
+                <p class="mb-2">Emergency Contact</p>
+                <div class="emergency-number">100</div>
+                <p class="text-muted mt-2">File FIR at nearest station</p>
+            </div>
+        </div>
+    </section>
 
-        <section class="card">
-            <h2 class="section-title">Immediate Actions</h2>
-            <ul>
-                <li>Call your bank immediately to block the card</li>
-                <li>Change all banking passwords and PINs</li>
-                <li>Enable Two-Factor Authentication (2FA)</li>
-                <li>File complaint on Cyber Crime Portal</li>
-            </ul>
-        </section>
-
-        <section class="card">
-            <h2 class="section-title">Post-Fraud Steps</h2>
-            <ul>
-                <li>Monitor credit report via CIBIL/Experian</li>
-                <li>Check for unauthorized transactions daily</li>
-                <li>Update security settings in banking apps</li>
-                <li>File RBI Ombudsman complaint if unresolved</li>
-            </ul>
-        </section>
-
-        <section class="card">
-            <h2 class="section-title">Prevention Tips</h2>
-            <ul>
-                <li>Never share OTP/CVV with anyone</li>
-                <li>Use virtual cards for online payments</li>
-                <li>Enable transaction alerts via SMS/email</li>
-                <li>Regularly check account statements</li>
-            </ul>
-        </section>
-
-        <section class="card">
-            <h2 class="section-title">Resources</h2>
-            <ul>
-                <li>RBI Guidelines: <a href="https://rbi.org.in">rbi.org.in</a></li>
-                <li>CIBIL Dispute: <a href="https://cibil.com">cibil.com</a></li>
-                <li>NPCI Portal: <a href="https://npci.org.in">npci.org.in</a></li>
-            </ul>
-            <a href="https://drive.google.com/file/d/1idB6j58vJMXvH5ZDz-LuAurMEYisCOLE/view?usp=sharing" class="checklist-btn">Download Action Checklist (PDF)</a>
-        </section>
-
-        <footer style="text-align: center; margin: 2rem 0; color: #666;">
-            <p>Note: This information is for guidance purposes only</p>
-        </footer>
+    <div class="row g-4">
+        <div class="col-md-6">
+            <section class="c-card h-100">
+                <h2 class="section-title">
+                    <i class="fas fa-bolt"></i>Immediate Actions
+                </h2>
+                <ul>
+                    <li>Block your card immediately</li>
+                    <li>Change all banking passwords</li>
+                    <li>Enable Two-Factor Authentication</li>
+                    <li>File cyber crime complaint</li>
+                </ul>
+            </section>
+        </div>
+        <div class="col-md-6">
+            <section class="c-card h-100">
+                <h2 class="section-title">
+                    <i class="fas fa-shield-alt"></i>Prevention Tips
+                </h2>
+                <ul>
+                    <li>Never share OTP or PIN</li>
+                    <li>Use secure payment methods</li>
+                    <li>Enable transaction alerts</li>
+                    <li>Monitor account regularly</li>
+                </ul>
+            </section>
+        </div>
     </div>
-</body>
-</html>
+
+    <section class="c-card mt-4">
+        <h2 class="section-title">
+            <i class="fas fa-book"></i>Resources
+        </h2>
+        <div class="row">
+            <div class="col-md-6">
+                <ul>
+                    <li><a href="https://rbi.org.in" class="resource-link">RBI Guidelines</a></li>
+                    <li><a href="https://cibil.com" class="resource-link">CIBIL Dispute Resolution</a></li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <a href="https://drive.google.com/file/d/1idB6j58vJMXvH5ZDz-LuAurMEYisCOLE/view?usp=sharing" 
+                   class="btn-primary">
+                    <i class="fas fa-download"></i>
+                    Download Safety Checklist
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p><i class="fas fa-info-circle me-2"></i>Information is updated regularly. Contact your bank for the most current guidance.</p>
+    </footer>
+</div>
 {% endblock %}

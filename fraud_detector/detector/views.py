@@ -23,7 +23,9 @@ def about(request):
 @login_required
 def cyber(request):
     return render(request, "detector/cyber.html")
-
+@login_required
+def home(request):
+    return render(request,"detector/home.html")
 
 @login_required
 def index(request):

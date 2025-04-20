@@ -3,14 +3,282 @@
 {% block title %}Home - Fraud Detector{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-12">
-        <div class="jumbotron text-center">
-            <h1 class="display-4">Welcome to Fraud Detector</h1>
-            <p class="lead">Protect your transactions with advanced fraud detection</p>
-            <hr class="my-4">
-            <p>Use our dashboard to analyze transactions and detect potential fraud.</p>
-            <a class="btn btn-primary btn-lg" href="{% url 'dashboard' %}" role="button">Go to Dashboard</a>
+<style>
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .main-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 15px;
+    }
+    
+    .hero-section {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        padding: 3rem;
+        margin-bottom: 2rem;
+    }
+    
+    .hero-title {
+        color: #2c3e50;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero-subtitle {
+        color: #34495e;
+        font-size: 1.5rem;
+        font-weight: 400;
+        margin-bottom: 2rem;
+    }
+    
+    .feature-card {
+        background: white;
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s, box-shadow 0.2s;
+        height: 100%;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+    
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        background: #f0f7ff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+    }
+    
+    .feature-icon i {
+        color: #3498db;
+    }
+    
+    .btn-primary {
+        background-color: #3498db;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+    
+    .btn-primary:hover {
+        background-color: #2980b9;
+        transform: translateY(-2px);
+    }
+    
+    .btn-outline-primary {
+        border: 2px solid #3498db;
+        color: #3498db;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+    
+    .btn-outline-primary:hover {
+        background-color: #3498db;
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    .stats-section {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        padding: 2rem;
+        margin-top: 3rem;
+    }
+    
+    .stat-item {
+        text-align: center;
+        padding: 1rem;
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #3498db;
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+        color: #7f8c8d;
+        font-size: 1rem;
+    }
+    
+    .metrics-section {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        padding: 2.5rem;
+        margin-top: 3rem;
+    }
+    
+    .metrics-title {
+        color: #2c3e50;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .matrix-container {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        margin-bottom: 2rem;
+    }
+    
+    .matrix-cell {
+        padding: 1rem;
+        text-align: center;
+        border: 1px solid #e1e8ed;
+        font-weight: 500;
+    }
+    
+    .matrix-header {
+        background: #f8f9fa;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+    
+    .true-negative {
+        background: #e8f7f3;
+        color: #27ae60;
+    }
+    
+    .true-positive {
+        background: #e8f7f3;
+        color: #27ae60;
+    }
+    
+    .false-positive {
+        background: #fff5f5;
+        color: #e74c3c;
+    }
+    
+    .false-negative {
+        background: #fff5f5;
+        color: #e74c3c;
+    }
+    
+    .metric-card {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    
+    .metric-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #3498db;
+        margin-bottom: 0.5rem;
+    }
+    
+    .metric-label {
+        color: #7f8c8d;
+        font-size: 1rem;
+    }
+    
+    .container-fluid {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+</style>
+
+<div class="main-container">
+    <!-- Hero Section with Enhanced Content -->
+    <div class="hero-section text-center">
+        <h1 class="hero-title display-4">Welcome to Fraud Detector</h1>
+        <p class="hero-subtitle">Protecting Your Financial Security with Advanced AI Technology</p>
+        <p class="lead text-muted mb-4">
+            Experience state-of-the-art fraud detection powered by machine learning, 
+            achieving 99.9% accuracy in protecting transactions worldwide.
+        </p>
+        <div class="d-flex gap-3 justify-content-center">
+            <a class="btn btn-primary" href="{% url 'dashboard' %}">
+                <i class="fas fa-chart-line me-2"></i>View Dashboard
+            </a>
+            <a class="btn btn-outline-primary" href="{% url 'index' %}">
+                <i class="fas fa-shield-alt me-2"></i>Check Transaction
+            </a>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="row g-4 mt-4">
+        <div class="col-md-4">
+            <div class="feature-card p-4">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt fa-2x"></i>
+                </div>
+                <h3 class="h4 text-center mb-3">Instant Detection</h3>
+                <p class="text-muted text-center mb-0">Real-time transaction screening with immediate fraud alerts to protect your financial activities 24/7.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card p-4">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line fa-2x"></i>
+                </div>
+                <h3 class="h4 text-center mb-3">Smart Dashboard</h3>
+                <p class="text-muted text-center mb-0">Interactive dashboard with visual insights, transaction history, and personalized security recommendations.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card p-4">
+                <div class="feature-icon">
+                    <i class="fas fa-lock fa-2x"></i>
+                </div>
+                <h3 class="h4 text-center mb-3">Enhanced Security</h3>
+                <p class="text-muted text-center mb-0">Advanced security measures with 99.9% accuracy rate in identifying and preventing fraudulent transactions.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add a second row of features -->
+    <div class="row g-4 mt-4">
+        <div class="col-md-4">
+            <div class="feature-card p-4">
+                <div class="feature-icon">
+                    <i class="fas fa-bell fa-2x"></i>
+                </div>
+                <h3 class="h4 text-center mb-3">Instant Alerts</h3>
+                <p class="text-muted text-center mb-0">Receive immediate notifications for suspicious activities and potential security threats.</p>
+        </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card p-4">
+                <div class="feature-icon">
+                    <i class="fas fa-file-alt fa-2x"></i>
+    </div>
+                <h3 class="h4 text-center mb-3">Detailed Reports</h3>
+                <p class="text-muted text-center mb-0">Comprehensive transaction reports with detailed analysis and actionable insights.</p>
+    </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card p-4">
+                <div class="feature-icon">
+                    <i class="fas fa-headset fa-2x"></i>
+                </div>
+                <h3 class="h4 text-center mb-3">24/7 Support</h3>
+                <p class="text-muted text-center mb-0">Round-the-clock customer support to assist you with any security concerns or queries.</p>
+            </div>
         </div>
     </div>
 </div>

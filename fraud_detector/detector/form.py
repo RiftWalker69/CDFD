@@ -2,13 +2,13 @@ from django import forms
 
 class TransactionForm(forms.Form):
     distance_from_home = forms.FloatField(
-        label='Distance from Home',
+        label='Distance from Home (km)',
         min_value=0,
         required=True,
         widget=forms.NumberInput(attrs={'class': 'form-control'})
     )
     distance_from_last_transaction = forms.FloatField(
-        label='Distance from Last Transaction',
+        label='Distance from Last Transaction (km)',
         min_value=0,
         required=True,
         widget=forms.NumberInput(attrs={'class': 'form-control'})

@@ -3,52 +3,146 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="text-center">Register</h3>
-                </div>
-                <div class="card-body">
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
-                                {{ message }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
 
-                    <form method="post" novalidate>
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="id_username" class="form-label">Username</label>
-                            <input type="text" name="username" class="form-control" id="id_username" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="id_email" class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control" id="id_email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="id_password1" class="form-label">Password</label>
-                            <input type="password" name="password1" class="form-control" id="id_password1" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="id_password2" class="form-label">Confirm Password</label>
-                            <input type="password" name="password2" class="form-control" id="id_password2" required>
-                        </div>
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Register</button>
-                        </div>
-                    </form>
-                    
-                    <div class="text-center mt-3">
-                        <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+<style>
+    body {
+        background-color: #f8f9fa;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .register-container {
+        max-width: 500px;
+        width: 100%;
+        margin: 0 auto;
+    }
+    
+    .register-card {
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        background: white;
+    }
+    
+    .card-header {
+        background-color: white;
+        color: #333;
+        padding: 1.5rem;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .card-header h3 {
+        margin: 0;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+    
+    .card-body {
+        padding: 2rem;
+    }
+    
+    .form-control {
+        border-radius: 6px;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        transition: all 0.2s;
+    }
+    
+    .form-control:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.1);
+    }
+    
+    .btn-primary {
+        background-color: #3498db;
+        border: none;
+        border-radius: 6px;
+        padding: 12px;
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+    
+    .btn-primary:hover {
+        background-color: #2980b9;
+    }
+    
+    .login-link {
+        color: #3498db;
+        font-weight: 500;
+        text-decoration: none;
+    }
+    
+    .login-link:hover {
+        text-decoration: underline;
+    }
+    
+    .form-label {
+        font-weight: 500;
+        color: #555;
+        margin-bottom: 8px;
+    }
+    
+    .alert {
+        border-radius: 6px;
+        padding: 12px 15px;
+    }
+    
+    .password-requirements {
+        font-size: 0.85rem;
+        color: #666;
+        margin-top: 5px;
+    }
+</style>
+
+<div class="register-container">
+    <div class="register-card">
+        <div class="card-header">
+            <h3>Create Your Account</h3>
+        </div>
+        <div class="card-body">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="id_username" class="form-label">Username</label>
+                    <input type="text" name="username" class="form-control" id="id_username" required placeholder="Choose a username">
+                </div>
+                <div class="mb-3">
+                    <label for="id_email" class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" id="id_email" required placeholder="Enter your email">
+                </div>
+                <div class="mb-3">
+                    <label for="id_password1" class="form-label">Password</label>
+                    <input type="password" name="password1" class="form-control" id="id_password1" required placeholder="Create a password">
+                    <div class="password-requirements">
+                        At least 8 characters with a mix of letters and numbers
                     </div>
                 </div>
+                <div class="mb-4">
+                    <label for="id_password2" class="form-label">Confirm Password</label>
+                    <input type="password" name="password2" class="form-control" id="id_password2" required placeholder="Repeat your password">
+                </div>
+                <div class="d-grid mb-3">
+                    <button type="submit" class="btn btn-primary">Create Account</button>
+                </div>
+            </form>
+            
+            <div class="text-center">
+                <p class="mb-0">Already have an account? <a href="{% url 'login' %}" class="login-link">Sign in</a></p>
             </div>
         </div>
     </div>
 </div>
-{% endblock %} 
+
+{% endblock %}

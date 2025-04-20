@@ -3,32 +3,253 @@
 {% block title %}About - Fraud Detector{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-12">
-        <h2 class="mb-4">About Fraud Detector</h2>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Our Mission</h5>
-                <p class="card-text">
-                    Fraud Detector is dedicated to protecting businesses and individuals from financial fraud through 
-                    advanced machine learning and real-time transaction monitoring.
-                </p>
-                
-                <h5 class="card-title mt-4">Key Features</h5>
+<style>
+    .about-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 15px;
+    }
+    
+    .about-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        padding: 2.5rem;
+        margin-bottom: 2.5rem;
+        transition: transform 0.2s;
+    }
+    
+    .about-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .matrix-container {
+        background: linear-gradient(to right bottom, #ffffff, #f8f9fa);
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+        margin-top: 2rem;
+    }
+    
+    .matrix-cell {
+        padding: 1.2rem;
+        text-align: center;
+        border: 1px solid #e1e8ed;
+        font-weight: 500;
+        font-size: 1.1rem;
+    }
+    
+    .matrix-header {
+        background: #f8f9fa;
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 1rem;
+    }
+    
+    .true-negative, .true-positive {
+        background: linear-gradient(135deg, #e8f7f3 0%, #f0faf7 100%);
+        color: #27ae60;
+    }
+    
+    .false-positive, .false-negative {
+        background: linear-gradient(135deg, #fff5f5 0%, #fff8f8 100%);
+        color: #e74c3c;
+    }
+    
+    .metric-card {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        text-align: center;
+        margin-top: 2rem;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    }
+    
+    .section-title {
+        color: #2c3e50;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        font-size: 2.2rem;
+    }
+    
+    .feature-list-item {
+        padding: 1rem 1.5rem;
+        border: none !important;
+        margin-bottom: 0.5rem;
+        border-radius: 8px;
+        transition: all 0.2s;
+        background: #f8f9fa;
+    }
+    
+    .feature-list-item:hover {
+        background: #f0f7ff;
+        transform: translateX(5px);
+    }
+    
+    .feature-icon {
+        color: #3498db;
+        margin-right: 1rem;
+        font-size: 1.2rem;
+    }
+    
+    .metric-value {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #3498db;
+        margin-bottom: 0.5rem;
+    }
+    
+    .metric-label {
+        color: #7f8c8d;
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+    
+    .contact-link {
+        color: #3498db;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+    }
+    
+    .contact-link:hover {
+        color: #2980b9;
+    }
+    
+    .performance-stats {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+    
+    .stat-item {
+        text-align: center;
+        padding: 1.5rem;
+        background: #f8f9fa;
+        border-radius: 12px;
+        min-width: 200px;
+    }
+    
+    .lead-text {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: #555;
+    }
+</style>
+
+<div class="about-container">
+    <!-- About Section -->
+    <div class="about-card">
+        <h2 class="section-title">About Fraud Detector</h2>
+        <p class="lead-text mb-4">
+            Fraud Detector is dedicated to protecting businesses and individuals from financial fraud through 
+            advanced machine learning and real-time transaction monitoring.
+        </p>
+        
+        <h3 class="h4 mt-5 mb-4">Our Mission</h3>
+        <p class="lead-text">
+            We strive to create a secure financial environment by leveraging cutting-edge AI technology 
+            to detect and prevent fraudulent transactions in real-time.
+        </p>
+        
+        <h3 class="h4 mt-5 mb-4">Key Features</h3>
+        <div class="row">
+            <div class="col-md-6">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Real-time fraud detection</li>
-                    <li class="list-group-item">Machine learning algorithms</li>
-                    <li class="list-group-item">Transaction analysis dashboard</li>
-                    <li class="list-group-item">Detailed reporting and analytics</li>
-                    <li class="list-group-item">Secure user authentication</li>
+                    <li class="feature-list-item">
+                        <i class="fas fa-shield-alt feature-icon"></i>
+                        Real-time fraud detection
+                    </li>
+                    <li class="feature-list-item">
+                        <i class="fas fa-robot feature-icon"></i>
+                        Machine learning algorithms
+                    </li>
+                    <li class="feature-list-item">
+                        <i class="fas fa-chart-line feature-icon"></i>
+                        Transaction analysis dashboard
+                    </li>
                 </ul>
-                
-                <h5 class="card-title mt-4">Contact Us</h5>
-                <p class="card-text">
-                    For support or inquiries, please contact us at: support@frauddetector.com
-                </p>
+            </div>
+            <div class="col-md-6">
+                <ul class="list-group list-group-flush">
+                    <li class="feature-list-item">
+                        <i class="fas fa-chart-bar feature-icon"></i>
+                        Detailed reporting and analytics
+                    </li>
+                    <li class="feature-list-item">
+                        <i class="fas fa-lock feature-icon"></i>
+                        Secure user authentication
+                    </li>
+                    <li class="feature-list-item">
+                        <i class="fas fa-clock feature-icon"></i>
+                        24/7 monitoring system
+                    </li>
+                </ul>
             </div>
         </div>
+    </div>
+
+    <!-- Model Performance Section -->
+    <div class="about-card">
+        <h2 class="section-title">Model Performance</h2>
+        <p class="lead-text mb-4">
+            Our advanced machine learning model has demonstrated exceptional performance in detecting fraudulent transactions,
+            achieving a remarkable ROC AUC score of 99.5%.
+        </p>
+        
+        <div class="matrix-container">
+            <h4 class="text-center mb-4 fw-bold">Confusion Matrix</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered mb-0">
+                    <thead>
+                        <tr>
+                            <th class="matrix-header">Predicted ↓ / Actual →</th>
+                            <th class="matrix-header">Non-Fraud</th>
+                            <th class="matrix-header">Fraud</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="matrix-header">Non-Fraud</td>
+                            <td class="matrix-cell true-negative">180,728</td>
+                            <td class="matrix-cell false-negative">11</td>
+                        </tr>
+                        <tr>
+                            <td class="matrix-header">Fraud</td>
+                            <td class="matrix-cell false-positive">1,791</td>
+                            <td class="matrix-cell true-positive">17,470</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="performance-stats">
+                <div class="stat-item">
+                    <div class="metric-value">99.5%</div>
+                    <div class="metric-label">ROC AUC Score</div>
+                </div>
+                <div class="stat-item">
+                    <div class="metric-value">99.9%</div>
+                    <div class="metric-label">Accuracy</div>
+                </div>
+                <div class="stat-item">
+                    <div class="metric-value">99.4%</div>
+                    <div class="metric-label">Precision</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="about-card">
+        <h2 class="section-title">Contact Us</h2>
+        <p class="lead-text">
+            For support or inquiries, please contact us at: 
+            <a href="mailto:support@frauddetector.com" class="contact-link">
+                <i class="fas fa-envelope me-2"></i>support@frauddetector.com
+            </a>
+        </p>
     </div>
 </div>
 {% endblock %} 

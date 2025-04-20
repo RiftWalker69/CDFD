@@ -18,11 +18,14 @@
                             ✅ Transaction Safe
                         {% endif %}
                     </h4>
-                    <p>Fraud Probability: {{ result.probability|floatformat:4 }}</p>
+                    <p>
+                        Fraud Probability: 
+                        {% widthratio result.probability 1 100 %}%
+                    </p>
                     <hr>
                     <p class="mb-0">Decision Threshold: {{ result.threshold|floatformat:4 }}</p>
                 </div>
-                
+
                 <div class="d-grid gap-2">
                     <a href="{% url 'index' %}" class="btn btn-primary">Check Another Transaction</a>
                     <a href="{% url 'dashboard' %}" class="btn btn-secondary">View Dashboard</a>
@@ -31,4 +34,4 @@
         </div>
     </div>
 </div>
-{% endblock %} 
+{% endblock %}
